@@ -27,3 +27,28 @@
 
 ```bash
 git clone https://github.com/knk642198/snapfit.git
+
+### 2-2. 가상환경 설정
+
+#### 📂 Snapfit 폴더로 이동
+```bash
+cd ~/snapfit
+
+#### 🧪 가상환경 생성
+python -m venv venv
+
+#### ⚙️ 가상환경 활성화
+```bash
+//Mac 명령어
+source venv/bin/activate
+
+//윈도우 명령어
+venv\Scripts\activate
+
+### 2-3. 의존성 설치
+
+가상환경이 활성화된 상태에서 프로젝트 의존성을 설치합니다.
+
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
