@@ -74,3 +74,12 @@ pip install -r requirements.txt
 ```
 
 ---
+
+### 2-4. 프론트엔드 개발 환경 세팅
+
+fe_src 폴더로 이동 후 아래 명령을 실행합니다.
+
+```bash
+cd fe_src
+npm install
+```
