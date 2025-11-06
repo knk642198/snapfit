@@ -26,4 +26,4 @@
 본인의 개발 폴더에서 아래 명령어를 실행해 소스코드를 내려받습니다.
 
 ```bash
-git clone https://github.com/knk642198/snapfit-mvp.git
+git clone https://github.com/knk642198/snapfit.git
