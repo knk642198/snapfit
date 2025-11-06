@@ -1,5 +1,5 @@
 # 📸 Snapfit 신규 팀원 온보딩 가이드  
-**대상:** 예지 / 희재 / 나경
+**대상:** 예지 / 희재 / 나경  
 **최종 업데이트:** 2025-11-06  
 
 ---
@@ -27,23 +27,42 @@
 
 ```bash
 git clone https://github.com/knk642198/snapfit.git
+````
+
+---
 
 ### 2-2. 가상환경 설정
 
 #### 📂 Snapfit 폴더로 이동
+
 ```bash
 cd ~/snapfit
+```
 
 #### 🧪 가상환경 생성
+
+```bash
 python -m venv venv
+```
+→ 현재 폴더 안에 `venv` 폴더가 새로 생성됩니다.
 
 #### ⚙️ 가상환경 활성화
-```bash
-//Mac 명령어
-source venv/bin/activate
 
-//윈도우 명령어
+**Mac / Linux 명령어**
+
+```bash
+source venv/bin/activate
+```
+
+**Windows 명령어**
+
+```bash
 venv\Scripts\activate
+```
+
+> 💡 프롬프트가 `(venv)`로 바뀌면 활성화에 성공한 것입니다.
+
+---
 
 ### 2-3. 의존성 설치
 
@@ -52,3 +71,6 @@ venv\Scripts\activate
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
+```
+
+---
