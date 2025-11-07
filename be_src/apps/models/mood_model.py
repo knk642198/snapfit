@@ -15,8 +15,8 @@ class Mood(Base):
 
 class PhotographerMood(Base):
     __tablename__ = 'photographer_moods'
-    photographer_id = Column(UUID(as_uuid=True), ForeignKey('photographers.id', ondelete='CASCADE'), primary_key=True)
-    mood_id = Column(Integer, ForeignKey('moods.id', ondelete='CASCADE'), primary_key=True)
+    photographer_id = Column(UUID(as_uuid=True), ForeignKey('photographers.id'), primary_key=True)
+    mood_id = Column(Integer, ForeignKey('moods.id'), primary_key=True)
 
     mood = relationship('Mood', back_populates='photographer_links')
-    # Photographer 모델에서 relationship('PhotographerMood', back_populates='photographer') 선언 필요
+    products = relationship('Product', back_populates='photographer')

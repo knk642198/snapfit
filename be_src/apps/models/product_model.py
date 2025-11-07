@@ -1,12 +1,13 @@
 import uuid
-from sqlalchemy import Column, String, Integer, Boolean, DateTime, Text
+from sqlalchemy import Column, Integer, String, Text, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from be_src.apps.database import Base
 
-class Photographer(Base):
-    __tablename__ = 'photographers'
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+class Product(Base):
+    __tablename__ = 'products'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    photographer_id = Column(UUID(as_uuid=True), ForeignKey('photographers.id', ondelete='CASCADE'), nullable=False)
     name = Column(String(100), nullable=False)
     url = Column(String(255), nullable=True)
     price = Column(Integer, nullable=True)
@@ -22,5 +23,5 @@ class Photographer(Base):
     created_by = Column(String(50), nullable=True)
     updated_at = Column(DateTime, nullable=True)
     updated_by = Column(String(50), nullable=True)
-    
-    moods = relationship('PhotographerMood', back_populates='photographer')
+
+    photographer = relationship('Photographer', back_populates='products')
