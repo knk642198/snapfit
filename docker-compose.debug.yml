@@ -3,9 +3,10 @@ services:
     environment:
       - ENV=debug
       - DEBUG=true
-    command: uvicorn apps.main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn be_src.apps.main:app --host 0.0.0.0 --port 8000 --reload
+
     volumes:
-      - ./be_src:/app
+      - ./be_src:/app/be_src
   frontend:
     environment:
       - ENV=debug
