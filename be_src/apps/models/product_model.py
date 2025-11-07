@@ -1,8 +1,9 @@
 import uuid
-from sqlalchemy import Column, Integer, String, Text, ForeignKey
+from sqlalchemy import Column, String, Integer, Boolean, DateTime, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from be_src.apps.database import Base
+from sqlalchemy import ForeignKey
 
 class Product(Base):
     __tablename__ = 'products'

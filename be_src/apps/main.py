@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from be_src.apps.database import engine, Base
 from be_src.apps.models.photographer_model import Photographer
 from be_src.apps.models.mood_model import Mood, PhotographerMood
+from be_src.apps.models.product_model import Product
 
 app = FastAPI(
     title="Snapfit Backend API",
