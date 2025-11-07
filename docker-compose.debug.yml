@@ -3,11 +3,11 @@ services:
     environment:
       - ENV=debug
       - DEBUG=true
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload  # live reload(파이썬 변경 즉시 적용)
+    command: uvicorn apps.main:app --host 0.0.0.0 --port 8000 --reload
     volumes:
-      - ./be_src:/app  # 소스코드 실시간 반영
+      - ./be_src:/app
   frontend:
     environment:
       - ENV=debug
     volumes:
-      - ./fe_src:/app  # 프론트 코드 실시간 반영
+      - ./fe_src:/app

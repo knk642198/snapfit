@@ -44,7 +44,7 @@ cd ~/snapfit
 ```bash
 python -m venv venv
 ```
-→ 현재 폴더 안에 `venv` 폴더가 새로 생성됩니다.
+> 💡 현재 폴더 안에 `venv` 폴더가 새로 생성됩니다.
 
 #### ⚙️ 가상환경 활성화
 
@@ -83,3 +83,9 @@ fe_src 폴더로 이동 후 아래 명령을 실행합니다.
 cd fe_src
 npm install
 ```
+
+### 2-5. 프론트엔드 개발 서버 실행
+```bash
+npm run dev
+```
+> 💡 기본 URL: http://localhost:5173
