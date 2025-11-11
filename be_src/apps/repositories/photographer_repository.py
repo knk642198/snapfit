@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from be_src.apps.models.photographer_model import Photographer, Mood, PhotographerMood
+from be_src.apps.models.photographer_model import Photographer
 
 class PhotographerRepository:
     def __init__(self, db: Session):
