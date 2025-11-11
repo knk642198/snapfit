@@ -20,5 +20,5 @@ class Photographer(Base):
     updated_at = Column(DateTime, nullable=True)
     updated_by = Column(String(50), nullable=True)
 
-    products = relationship('Product', back_populates='photographer', cascade='all, delete-orphan')
-    category_links = relationship('PhotographerCategory', back_populates='photographer', cascade='all, delete-orphan')
+    products = relationship('Product', back_populates='photographer')
+    category_links = relationship('PhotographerCategory', back_populates='photographer')

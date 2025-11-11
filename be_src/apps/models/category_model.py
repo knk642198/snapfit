@@ -25,16 +25,16 @@ class Category(Base):
     )
 class PhotographerCategory(Base):
     __tablename__ = 'photographer_categories'
-    photographer_id = Column(UUID, ForeignKey('photographers.id', ondelete='CASCADE'), primary_key=True)
-    category_id = Column(Integer, ForeignKey('categories.id', ondelete='CASCADE'), primary_key=True)
+    photographer_id = Column(UUID, ForeignKey('photographers.id), primary_key=True)
+    category_id = Column(Integer, ForeignKey('categories.id'), primary_key=True)
 
     category = relationship('Category', back_populates='photographer_links')
     photographer = relationship('Photographer', back_populates='category_links')
 
 class ProductCategory(Base):
     __tablename__ = 'product_categories'
-    product_id = Column(Integer, ForeignKey('products.id', ondelete='CASCADE'), primary_key=True)
-    category_id = Column(Integer, ForeignKey('categories.id', ondelete='CASCADE'), primary_key=True)
+    product_id = Column(Integer, ForeignKey('products.id'), primary_key=True)
+    category_id = Column(Integer, ForeignKey('categories.id'), primary_key=True)
 
     category = relationship('Category', back_populates='product_links')
     product = relationship('Product', back_populates='category_links')

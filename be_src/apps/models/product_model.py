@@ -29,4 +29,4 @@ class Product(Base):
 
     photographer = relationship('Photographer', back_populates='products')
     region = relationship('Region', back_populates='products')
-    category_links = relationship('ProductCategory', back_populates='product', cascade='all, delete-orphan')
+    category_links = relationship('ProductCategory', back_populates='product')
