@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, Boolean, DateTime, func
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
 from be_src.apps.database import Base
@@ -9,6 +9,13 @@ class Category(Base):
     name = Column(String(50), nullable=False)
     category_type = Column(String(50), nullable=False)  # 'location(실내외)', 'camera(아이폰,dslr)', 'concept(웨딩,우정,커플)', 'duration(1시간,2시간)', 'mood(러블ㄹ,시크,키치,차분함)'
     description = Column(Text, nullable=True)
+
+    delete_flag = Column(Boolean, default=False, nullable=False)
+
+    created_at = Column(DateTime, server_default=func.now(), nullable=False)
+    created_by = Column(String(50), nullable=False)
+    updated_at = Column(DateTime, nullable=True)
+    updated_by = Column(String(50), nullable=True)
 
     photographer_links = relationship(
         'PhotographerCategory', back_populates='category'
