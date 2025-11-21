@@ -11,7 +11,7 @@ class Region(Base):
     district = Column(String(100), nullable=True)  # 한국: 구
     place = Column(String(100), nullable=True)
 
-    delete_flag = Column(Boolean, default=False, nullable=False)
+    delete_flag = Column(String(1), server_default='N', nullable=False)
 
     created_at = Column(TIMESTAMP, server_default=func.now(), nullable=False)
     created_by = Column(String(100), nullable=False)

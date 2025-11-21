@@ -10,7 +10,7 @@ class Category(Base):
     category_type = Column(String(100), nullable=False)  # 'location(실내외)', 'camera(아이폰,dslr)', 'concept(웨딩,우정,커플)', 'duration(1시간,2시간)', 'mood(러블ㄹ,시크,키치,차분함)'
     description = Column(Text, nullable=True)
 
-    delete_flag = Column(Boolean, default=False, nullable=False)
+    delete_flag = Column(String(1), server_default='N', nullable=False)
 
     created_at = Column(TIMESTAMP, server_default=func.now(), nullable=False)
     created_by = Column(String(100), nullable=False)

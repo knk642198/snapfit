@@ -4,6 +4,7 @@ from be_src.apps.models.photographer_model import Photographer
 from be_src.apps.models.category_model import Category, PhotographerCategory, ProductCategory
 from be_src.apps.models.product_model import Product
 from be_src.apps.models.region_model import Region
+from be_src.apps.routers import router
 
 app = FastAPI(
     title="Snapfit Backend API",
@@ -15,10 +16,9 @@ app = FastAPI(
 def on_startup():
     Base.metadata.create_all(engine)
 
+# Router 등록
+app.include_router(router, prefix="/api")
+
 @app.get("/")
 def read_root():
     return {"message": "🚀 Snapfit Backend is running!"}
-
-@app.get("/health")
-def health_check():
-    return {"status": "ok"}
