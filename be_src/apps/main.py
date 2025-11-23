@@ -1,12 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from be_src.apps.database import engine, Base
-from be_src.apps.routers import router
+from apps.database import engine, Base
+from apps.routers import router
 
-from be_src.apps.models.photographer_model import Photographer
-from be_src.apps.models.product_model import Product
-from be_src.apps.models.region_model import Region
-from be_src.apps.models.category_model import Category, PhotographerCategory, ProductCategory
+from apps.models.photographer_model import Photographer
+from apps.models.product_model import Product
+from apps.models.region_model import Region
+from apps.models.category_model import Category, PhotographerCategory, ProductCategory
 
 app = FastAPI(
     title="Snapfit Backend API",

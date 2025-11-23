@@ -1,7 +1,7 @@
 from sqlalchemy import TIMESTAMP, Column, Integer, String, Text, ForeignKey, Boolean, DateTime, func
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
-from be_src.apps.database import Base
+from apps.database import Base
 
 class Category(Base):
     __tablename__ = 'category'

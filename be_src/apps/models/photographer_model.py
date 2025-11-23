@@ -2,7 +2,7 @@ import uuid
 from sqlalchemy import TIMESTAMP, Column, String, Boolean, DateTime, Text, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
-from be_src.apps.database import Base
+from apps.database import Base
 
 class Photographer(Base):
     __tablename__ = 'photographer'
