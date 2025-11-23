@@ -42,7 +42,7 @@ const Home = () => {
   const allProducts = products.slice(0, 4);
 
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: '#f9f9f9' }}>
+    <Box sx={{ minHeight: '100vh', backgroundColor: 'white' }}>
       {/* Header */}
       <Box 
         sx={{ 
@@ -51,49 +51,63 @@ const Home = () => {
           position: 'sticky',
           top: 0,
           zIndex: 1000,
-          px: 2,
         }}
       >
-        <Box sx={{ py: 2, mb: 1 }}>
-          <Typography variant="h5" sx={{ fontWeight: 'bold', letterSpacing: '0.5px' }}>
-            SNAPFiT
-          </Typography>
-        </Box>
-        <Tabs 
-          value={selectedTab} 
-          onChange={handleTabChange}
-          variant="scrollable"
-          scrollButtons={false}
-          sx={{
-            minHeight: 40,
-            '& .MuiTab-root': {
-              minHeight: 40,
-              minWidth: 'auto',
-              px: 2,
-              fontSize: '15px',
-              fontWeight: 500,
-              color: '#999',
-            },
-            '& .Mui-selected': {
-              color: '#000',
-              fontWeight: 600,
-            },
-            '& .MuiTabs-indicator': {
-              backgroundColor: '#000',
-              height: 3,
-            },
+        <Box 
+          sx={{ 
+            maxWidth: '600px',
+            mx: 'auto',
+            px: 2,
           }}
         >
-          <Tab label="홈" />
-          <Tab label="리뷰" />
-          <Tab label="시크" />
-          <Tab label="키치" />
-          <Tab label="차분한" />
-        </Tabs>
+          <Box sx={{ py: 2, mb: 1 }}>
+            <Typography variant="h5" sx={{ fontWeight: 'bold', letterSpacing: '0.5px' }}>
+              SNAPFiT
+            </Typography>
+          </Box>
+          <Tabs 
+            value={selectedTab} 
+            onChange={handleTabChange}
+            variant="scrollable"
+            scrollButtons={false}
+            sx={{
+              minHeight: 40,
+              '& .MuiTab-root': {
+                minHeight: 40,
+                minWidth: 'auto',
+                px: 2,
+                fontSize: '15px',
+                fontWeight: 500,
+                color: '#999',
+              },
+              '& .Mui-selected': {
+                color: '#000',
+                fontWeight: 600,
+              },
+              '& .MuiTabs-indicator': {
+                backgroundColor: '#000',
+                height: 3,
+              },
+            }}
+          >
+            <Tab label="홈" />
+            <Tab label="리뷰" />
+            <Tab label="시크" />
+            <Tab label="키치" />
+            <Tab label="차분한" />
+          </Tabs>
+        </Box>
       </Box>
 
       {/* Main Content with Padding */}
-      <Box sx={{ px: 2, py: 3 }}>
+      <Box 
+        sx={{ 
+          maxWidth: '600px',
+          mx: 'auto',
+          px: 2, 
+          py: 3,
+        }}
+      >
         {/* Main Banner Section */}
         {!loading && featuredProduct && (
           <Box sx={{ mb: 4 }}>
@@ -109,16 +123,15 @@ const Home = () => {
               sx={{ 
                 height: 320,
                 position: 'relative',
-                borderRadius: 2,
+                borderRadius: 1,
                 overflow: 'hidden',
                 mb: 2,
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
               }}
             >
               <CardMedia
                 component="img"
                 height="100%"
-                image={featuredProduct.image_url || 'https://via.placeholder.com/400x320'}
+                image={featuredProduct.image_url}
                 alt={featuredProduct.name}
                 sx={{ objectFit: 'cover' }}
               />
@@ -148,13 +161,10 @@ const Home = () => {
                 }}
               >
                 <Typography variant="caption" sx={{ display: 'block', mb: 0.5, opacity: 0.9 }}>
-                  {featuredProduct.region?.city || '서울'} {featuredProduct.region?.district || '용산구'} | 중구
+                  {featuredProduct.region?.city} {featuredProduct.region?.district}
                 </Typography>
-                <Typography variant="body1" sx={{ fontWeight: 600, mb: 0.3, lineHeight: 1.3 }}>
-                  '{featuredProduct.photographer?.name || '대왕개미 삭숭 컨셉스냅'}'
-                </Typography>
-                <Typography variant="caption" sx={{ opacity: 0.9, lineHeight: 1.4 }}>
-                  {featuredProduct.description || '전문 인기 포토그래퍼, 데이터만니 만'}
+                <Typography variant="body1" sx={{ fontWeight: 600, mb: 0.5, lineHeight: 1.3 }}>
+                  {featuredProduct.description}
                 </Typography>
               </Box>
             </Card>
@@ -182,7 +192,7 @@ const Home = () => {
         )}
 
         {/* "나만의 소중한 추억을 만들어보세요" Section */}
-        <Box>
+        <Box sx={{ mb: 6 }}>
           <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
             나만의 소중한 추억을 만들어보세요
           </Typography>
