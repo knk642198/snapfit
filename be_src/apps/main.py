@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from be_src.apps.database import engine, Base
 from be_src.apps.routers import router
 
@@ -11,6 +12,15 @@ app = FastAPI(
     title="Snapfit Backend API",
     description="Snapfit 프로젝트의 백엔드 API 서버입니다.",
     version="1.0.0"
+)
+
+# CORS 설정
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 @app.on_event("startup")
