@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 from be_src.apps.database import engine, Base
+from be_src.apps.routers import router
+
 from be_src.apps.models.photographer_model import Photographer
-from be_src.apps.models.category_model import Category, PhotographerCategory, ProductCategory
 from be_src.apps.models.product_model import Product
 from be_src.apps.models.region_model import Region
-from be_src.apps.routers import router
+from be_src.apps.models.category_model import Category, PhotographerCategory, ProductCategory
 
 app = FastAPI(
     title="Snapfit Backend API",
@@ -17,7 +18,7 @@ def on_startup():
     Base.metadata.create_all(engine)
 
 # Router 등록
-app.include_router(router, prefix="/api")
+app.include_router(router)
 
 @app.get("/")
 def read_root():

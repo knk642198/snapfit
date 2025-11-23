@@ -22,7 +22,7 @@ class ProductRepository(BaseRepository):
             .filter(Product.use_flag == True)
         )
         result = self.database_session.execute(stmt)
-        return result.scalars().all()
+        return result.scalars().unique().all()
 
     def get_by_id_with_photographer_region_categories(
         self, 
@@ -41,6 +41,6 @@ class ProductRepository(BaseRepository):
             .filter(Product.use_flag == True)
         )
         result = self.database_session.execute(stmt)
-        return result.scalar_one_or_none()
+        return result.scalars().unique().first()
 
 
