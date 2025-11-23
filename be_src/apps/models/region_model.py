@@ -1,6 +1,6 @@
 from sqlalchemy import TIMESTAMP, Column, Integer, String, Boolean, DateTime, func
 from sqlalchemy.orm import relationship
-from apps.database import Base
+from be_src.apps.database import Base
 
 class Region(Base):
     __tablename__ = 'region'

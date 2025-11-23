@@ -1,9 +1,9 @@
 from typing import List
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import select
-from apps.models.product_model import Product
-from apps.models.category_model import ProductCategory
-from apps.repositories.base_repository import BaseRepository
+from be_src.apps.models.product_model import Product
+from be_src.apps.models.category_model import ProductCategory
+from be_src.apps.repositories.base_repository import BaseRepository
 
 
 class ProductRepository(BaseRepository):
