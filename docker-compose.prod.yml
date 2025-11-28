@@ -5,6 +5,9 @@ services:
       dockerfile: ./be_src/Dockerfile.prod
     ports:
       - "8000:8000"
+    environment:
+      # 프로덕션 DB 설정
+      - DATABASE_URL=postgresql+psycopg2://postgres:snapfit2025!@44.245.228.226:5432/postgres
     restart: unless-stopped
   
   frontend:

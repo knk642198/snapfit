@@ -7,6 +7,9 @@ services:
       - "8000:8000"
     volumes:
       - ./be_src:/app/be_src
+    environment:
+      # 로컬 개발용 DB 설정 (필요시 변경)
+      - DATABASE_URL=postgresql+psycopg2://postgres:snapfit2025!@44.245.228.226:5432/postgres
     command: uvicorn be_src.apps.main:app --host 0.0.0.0 --port 8000 --reload
   frontend:
     build: ./fe_src
