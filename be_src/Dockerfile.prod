@@ -1,0 +1,14 @@
+FROM python:3.12-slim
+WORKDIR /app
+
+# be_src 디렉토리 복사
+COPY be_src /app/be_src
+
+# 의존성 설치
+RUN pip install --no-cache-dir -r /app/be_src/requirements.txt
+
+# 프로덕션 모드로 실행 
+CMD ["uvicorn", "be_src.apps.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+EXPOSE 8000
+

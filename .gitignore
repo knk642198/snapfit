@@ -5,5 +5,17 @@ node_modules/
 *.pyc
 .DS_Store
 *.log
+
+# 환경 변수 파일 (보안상 git에 포함하지 않음)
 .env
+.env.local
+.env.development
+.env.production
+fe_src/.env
+fe_src/.env.local
+fe_src/.env.development
+fe_src/.env.production
+
+# 빌드 결과물
 dist/
+fe_src/dist/

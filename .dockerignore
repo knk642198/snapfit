@@ -27,8 +27,7 @@ fe_src/dist/
 .git/
 .gitignore
 
-# Environment
-.env
+# Environment (로컬 개발용만 제외)
 .env.local
 .env.*.local
 

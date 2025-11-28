@@ -1,91 +1,85 @@
-# 📸 Snapfit 신규 팀원 온보딩 가이드  
-**대상:** 예지 / 희재 / 나경  
-**최종 업데이트:** 2025-11-06  
+# SnapFit
+
+## 환경 구성
+
+### 로컬 개발 환경
+
+1. **환경 변수 설정**
+```bash
+# fe_src/.env.development 파일 생성
+echo "VITE_SERVICE_URL=http://localhost:8000" > fe_src/.env.development
+```
+
+2. **Docker Compose로 실행**
+```bash
+docker-compose up
+```
+
+- Frontend: http://localhost:5173
+- Backend: http://localhost:8000
+- 코드 변경 시 자동 리로드 (볼륨 마운트)
 
 ---
 
-## 1. 👩‍💻 개발 환경 안내  
+### 서버(프로덕션) 환경
 
-### 💻 기술 스택  
-- **Frontend:** React  
-- **Backend:** Python FastAPI  
-- **배포:** Docker  
-- **배포 환경:** AWS EC2 + Docker  
+1. **환경 변수 설정**
+```bash
+# fe_src/.env.production 파일 생성
+echo "VITE_SERVICE_URL=http://44.245.228.226:8000" > fe_src/.env.production
+```
 
-### 🌿 브랜치 전략  
-- 기본 브랜치: `dev`  
-- 필요 시 기능별 브랜치 추가 (추후 확장 예정)  
+2. **프로덕션 빌드 및 실행**
+```bash
+docker-compose -f docker-compose.prod.yml up -d --build
+```
+
+- Frontend: http://44.245.228.226:5173
+- Backend: http://44.245.228.226:8000
+- 최적화된 프로덕션 빌드
+- 자동 재시작 설정
 
 ---
 
-## 2. 🚀 온보딩 가이드  
+## 파일 구조
 
-### 2-1. 로컬 개발 환경 준비  
-
-#### ✅ 레포지토리 클론  
-본인의 개발 폴더에서 아래 명령어를 실행해 소스코드를 내려받습니다.
-
-```bash
-git clone https://github.com/knk642198/snapfit.git
-````
-
----
-
-### 2-2. 가상환경 설정
-
-#### 📂 Snapfit 폴더로 이동
-
-```bash
-cd ~/snapfit
 ```
-
-#### 🧪 가상환경 생성
-
-```bash
-python -m venv venv
-```
-> 💡 현재 폴더 안에 `venv` 폴더가 새로 생성됩니다.
-
-#### ⚙️ 가상환경 활성화
-
-**Mac / Linux 명령어**
-
-```bash
-source venv/bin/activate
-```
-
-**Windows 명령어**
-
-```bash
-venv\Scripts\activate
-```
-
-> 💡 프롬프트가 `(venv)`로 바뀌면 활성화에 성공한 것입니다.
-
----
-
-### 2-3. 의존성 설치
-
-가상환경이 활성화된 상태에서 프로젝트 의존성을 설치합니다.
-
-```bash
-pip install --upgrade pip
-pip install -r requirements.txt
+snapfit/
+├── docker-compose.yml          # 로컬 개발용
+├── docker-compose.prod.yml     # 서버 배포용
+├── be_src/
+│   ├── Dockerfile             # 개발용 (--reload)
+│   └── Dockerfile.prod        # 프로덕션용
+└── fe_src/
+    ├── Dockerfile             # 개발용 (dev server)
+    ├── Dockerfile.prod        # 프로덕션용 (빌드 + serve)
+    ├── .env.development       # 로컬 환경 변수 (git 제외)
+    └── .env.production        # 서버 환경 변수 (git 제외)
 ```
 
 ---
 
-### 2-4. 프론트엔드 개발 환경 세팅
+## 명령어 요약
 
-fe_src 폴더로 이동 후 아래 명령을 실행합니다.
+| 환경 | 명령어 | 설명 |
+|------|--------|------|
+| 로컬 개발 | `docker-compose up` | 개발 서버 실행 (hot reload) |
+| 서버 배포 | `docker-compose -f docker-compose.prod.yml up -d --build` | 프로덕션 빌드 및 실행 |
+| 서버 중지 | `docker-compose -f docker-compose.prod.yml down` | 컨테이너 중지 |
+| 로그 확인 | `docker-compose logs -f` | 실시간 로그 확인 |
 
-```bash
-cd fe_src
-npm install
-```
+---
 
-### 2-5. 프론트엔드 개발 서버 실행
-```bash
-npm run dev
-```
-> 💡 기본 URL: http://localhost:5173
+## 환경별 차이점
+
+### 로컬 개발
+- ✅ 볼륨 마운트로 코드 변경 즉시 반영
+- ✅ Hot reload 활성화
+- ✅ 개발 서버 (빠른 빌드)
+- ✅ 디버그 모드
+
+### 서버(프로덕션)
+- ✅ 최적화된 프로덕션 빌드
+- ✅ 정적 파일 서빙
+- ✅ 자동 재시작 설정
+- ✅ 볼륨 마운트 없음 (이미지에 코드 포함)

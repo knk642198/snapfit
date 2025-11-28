@@ -1,0 +1,31 @@
+FROM node:18 AS builder
+WORKDIR /app
+
+# package.json과 package-lock.json 복사
+COPY package*.json ./
+
+# 의존성 설치
+RUN npm ci
+
+# 소스 코드 복사
+COPY . .
+
+# 프로덕션 환경 변수 설정 후 빌드
+ENV VITE_SERVICE_URL=http://44.245.228.226:8000
+RUN npm run build
+
+# 프로덕션 서버
+FROM node:18-slim
+WORKDIR /app
+
+# 빌드된 파일을 서빙하기 위한 serve 설치
+RUN npm install -g serve
+
+# 빌드된 파일 복사
+COPY --from=builder /app/dist ./dist
+
+# 정적 파일 서빙
+CMD ["serve", "-s", "dist", "-l", "5173"]
+
+EXPOSE 5173
+
