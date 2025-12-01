@@ -37,9 +37,21 @@ const Home = () => {
     setSelectedTab(newValue);
   };
 
-  const featuredProduct = products[0];
-  const recommendedProducts = products.slice(1, 4);
-  const allProducts = products.slice(0, 4);
+  // 탭 라벨과 카테고리 매핑
+  const tabCategories = ['홈', '러블리', '시크', '키치', '차분한'];
+  
+  // 선택된 탭에 따라 상품 필터링
+  const filteredProducts = selectedTab === 0 
+    ? products  // 홈 탭은 전체 표시
+    : products.filter(product => 
+        product.product_category?.some(
+          pc => pc.category?.name === tabCategories[selectedTab]
+        )
+      );
+
+  const featuredProduct = filteredProducts[0];
+  const recommendedProducts = filteredProducts.slice(1, 4);
+  const allProducts = filteredProducts.slice(0, 4);
 
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: 'white' }}>
@@ -91,7 +103,7 @@ const Home = () => {
             }}
           >
             <Tab label="홈" />
-            <Tab label="리뷰" />
+            <Tab label="러블리" />
             <Tab label="시크" />
             <Tab label="키치" />
             <Tab label="차분한" />
@@ -209,6 +221,14 @@ const Home = () => {
         {loading && (
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
             <Typography>로딩 중...</Typography>
+          </Box>
+        )}
+
+        {!loading && filteredProducts.length === 0 && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '30vh' }}>
+            <Typography color="text.secondary">
+              '{tabCategories[selectedTab]}' 카테고리에 해당하는 상품이 없습니다.
+            </Typography>
           </Box>
         )}
       </Box>

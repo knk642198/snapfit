@@ -52,28 +52,21 @@ const ProductCard = ({ product, size = 'medium' }) => {
         >
           {product.description}
         </Typography>
-        {!isSmall && (
-          <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5 }}>
-            <Chip 
-              label="시크" 
-              size="small" 
-              sx={{ 
-                height: 20,
-                fontSize: '11px',
-                borderRadius: '4px',
-                backgroundColor: '#f5f5f5',
-              }}
-            />
-            <Chip 
-              label="러블리" 
-              size="small" 
-              sx={{ 
-                height: 20,
-                fontSize: '11px',
-                borderRadius: '4px',
-                backgroundColor: '#f5f5f5',
-              }}
-            />
+        {!isSmall && product.product_category?.length > 0 && (
+          <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5, flexWrap: 'wrap' }}>
+            {product.product_category.slice(0, 2).map((pc, index) => (
+              <Chip 
+                key={index}
+                label={pc.category?.name} 
+                size="small" 
+                sx={{ 
+                  height: 20,
+                  fontSize: '11px',
+                  borderRadius: '4px',
+                  backgroundColor: '#f5f5f5',
+                }}
+              />
+            ))}
           </Box>
         )}
       </CardContent>

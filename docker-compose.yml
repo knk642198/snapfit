@@ -10,6 +10,10 @@ services:
     environment:
       # 로컬 개발용 DB 설정 (필요시 변경)
       - DATABASE_URL=postgresql+psycopg2://postgres:snapfit2025!@44.245.228.226:5432/postgres
+      # AWS credentials (로컬 테스트용 - EC2에서는 IAM Role 사용)
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=us-west-2
     command: uvicorn be_src.apps.main:app --host 0.0.0.0 --port 8000 --reload
   frontend:
     build: ./fe_src
