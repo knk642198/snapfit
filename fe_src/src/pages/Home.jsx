@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Box,
   Typography,
   Tab,
   Tabs,
   Grid,
-  Card,
-  CardMedia,
-  Chip,
 } from '@mui/material';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ProductCard from '../components/ProductCard';
 import { productAPI } from '../api/client';
 
@@ -17,6 +13,8 @@ const Home = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const carouselRef = useRef(null);
 
   useEffect(() => {
     fetchProducts();
@@ -42,24 +40,35 @@ const Home = () => {
   
   // 선택된 탭에 따라 상품 필터링
   const filteredProducts = selectedTab === 0 
-    ? products  // 홈 탭은 전체 표시
+    ? products
     : products.filter(product => 
         product.product_category?.some(
           pc => pc.category?.name === tabCategories[selectedTab]
         )
       );
 
-  const featuredProduct = filteredProducts[0];
-  const recommendedProducts = filteredProducts.slice(1, 4);
-  const allProducts = filteredProducts.slice(0, 4);
+  // 대표 상품 (캐러셀용)
+  const featuredProducts = filteredProducts.slice(0, 5);
+  // 그리드용 상품
+  const gridProducts = filteredProducts;
+
+  // 스크롤 이벤트로 현재 슬라이드 감지
+  const handleScroll = () => {
+    if (carouselRef.current) {
+      const scrollLeft = carouselRef.current.scrollLeft;
+      const itemWidth = carouselRef.current.offsetWidth;
+      const newIndex = Math.round(scrollLeft / itemWidth);
+      setCurrentSlide(newIndex);
+    }
+  };
 
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: 'white' }}>
-      {/* Header */}
+      {/* Header - 로고 중앙 배치 */}
       <Box 
         sx={{ 
           backgroundColor: 'white', 
-          borderBottom: '2px solid #000',
+          borderBottom: '1px solid #eee',
           position: 'sticky',
           top: 0,
           zIndex: 1000,
@@ -72,25 +81,41 @@ const Home = () => {
             px: 2,
           }}
         >
-          <Box sx={{ py: 2, mb: 1 }}>
-            <Typography variant="h5" sx={{ fontWeight: 'bold', letterSpacing: '0.5px' }}>
+          {/* 로고 - 중앙 배치 */}
+          <Box sx={{ 
+            py: 2, 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center' 
+          }}>
+            <Typography 
+              variant="h5" 
+              sx={{ 
+                fontWeight: 800, 
+                letterSpacing: '2px',
+                fontFamily: '"Helvetica Neue", Arial, sans-serif',
+              }}
+            >
               SNAPFiT
             </Typography>
           </Box>
+          
+          {/* 탭 */}
           <Tabs 
             value={selectedTab} 
             onChange={handleTabChange}
             variant="scrollable"
             scrollButtons={false}
             sx={{
-              minHeight: 40,
+              minHeight: 36,
               '& .MuiTab-root': {
-                minHeight: 40,
+                minHeight: 36,
                 minWidth: 'auto',
-                px: 2,
-                fontSize: '15px',
+                px: 1.5,
+                fontSize: '14px',
                 fontWeight: 500,
                 color: '#999',
+                textTransform: 'none',
               },
               '& .Mui-selected': {
                 color: '#000',
@@ -98,7 +123,7 @@ const Home = () => {
               },
               '& .MuiTabs-indicator': {
                 backgroundColor: '#000',
-                height: 3,
+                height: 2,
               },
             }}
           >
@@ -111,122 +136,150 @@ const Home = () => {
         </Box>
       </Box>
 
-      {/* Main Content with Padding */}
-      <Box 
-        sx={{ 
-          maxWidth: '600px',
-          mx: 'auto',
-          px: 2, 
-          py: 3,
-        }}
-      >
-        {/* Main Banner Section */}
-        {!loading && featuredProduct && (
+      {/* Main Content */}
+      <Box sx={{ maxWidth: '600px', mx: 'auto' }}>
+        
+        {/* 대표 이미지 캐러셀 섹션 */}
+        {!loading && featuredProducts.length > 0 && (
           <Box sx={{ mb: 4 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                이런 사진은 어때요?
-              </Typography>
-              <ArrowForwardIcon sx={{ fontSize: 24 }} />
-            </Box>
-            
-            {/* Featured Product Card */}
-            <Card 
-              sx={{ 
-                height: 320,
-                position: 'relative',
-                borderRadius: 1,
-                overflow: 'hidden',
-                mb: 2,
-              }}
-            >
-              <CardMedia
-                component="img"
-                height="100%"
-                image={featuredProduct.image_url}
-                alt={featuredProduct.name}
-                sx={{ objectFit: 'cover' }}
-              />
-              {featuredProduct.use_flag && (
-                <Chip 
-                  label="스튜디오" 
-                  size="small" 
-                  sx={{ 
-                    position: 'absolute', 
-                    top: 12, 
-                    left: 12,
-                    backgroundColor: '#5B7FFF',
-                    color: 'white',
-                    fontWeight: 600,
-                  }}
-                />
-              )}
-              <Box
-                sx={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 70%, transparent 100%)',
-                  color: 'white',
-                  p: 2,
-                }}
-              >
-                <Typography variant="caption" sx={{ display: 'block', mb: 0.5, opacity: 0.9 }}>
-                  {featuredProduct.region?.city} {featuredProduct.region?.district}
-                </Typography>
-                <Typography variant="body1" sx={{ fontWeight: 600, mb: 0.5, lineHeight: 1.3 }}>
-                  {featuredProduct.description}
-                </Typography>
-              </Box>
-            </Card>
-
-            {/* Horizontal Scrollable Recommended Products */}
-            <Box 
-              sx={{ 
+            {/* 가로 스크롤 캐러셀 */}
+            <Box
+              ref={carouselRef}
+              onScroll={handleScroll}
+              sx={{
                 display: 'flex',
-                gap: 1.5,
                 overflowX: 'auto',
-                pb: 1,
-                '&::-webkit-scrollbar': {
-                  display: 'none',
-                },
+                scrollSnapType: 'x mandatory',
+                scrollBehavior: 'smooth',
+                '&::-webkit-scrollbar': { display: 'none' },
                 scrollbarWidth: 'none',
               }}
             >
-              {recommendedProducts.map((product) => (
-                <Box key={product.id} sx={{ minWidth: 140, flexShrink: 0 }}>
-                  <ProductCard product={product} size="small" />
+              {featuredProducts.map((product, index) => (
+                <Box
+                  key={product.id}
+                  sx={{
+                    minWidth: '100%',
+                    scrollSnapAlign: 'start',
+                    px: 2,
+                    pt: 3,
+                    boxSizing: 'border-box',
+                  }}
+                >
+                  {/* 대표 이미지 */}
+                  <Box
+                    sx={{
+                      width: '100%',
+                      aspectRatio: '3 / 4',
+                      backgroundColor: '#f5f5f5',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={product.image_url}
+                      alt={product.name}
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </Box>
+                  
+                  {/* 상품 정보 */}
+                  <Box sx={{ mt: 2, mb: 3 }}>
+                    <Typography 
+                      sx={{ 
+                        fontSize: '18px', 
+                        fontWeight: 600,
+                        letterSpacing: '0.5px',
+                        mb: 1,
+                      }}
+                    >
+                      {product.name}
+                    </Typography>
+                    {product.product_category?.length > 0 && (
+                      <Typography 
+                        sx={{ 
+                          fontSize: '13px', 
+                          color: '#888',
+                        }}
+                      >
+                        {product.product_category.map(pc => pc.category?.name).filter(Boolean).join(' · ')}
+                      </Typography>
+                    )}
+                  </Box>
                 </Box>
+              ))}
+            </Box>
+
+            {/* 도트 인디케이터 */}
+            <Box sx={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              gap: 1,
+              pb: 3,
+            }}>
+              {featuredProducts.map((_, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    backgroundColor: currentSlide === index ? '#000' : '#ddd',
+                    transition: 'background-color 0.3s',
+                  }}
+                />
               ))}
             </Box>
           </Box>
         )}
 
-        {/* "나만의 소중한 추억을 만들어보세요" Section */}
-        <Box sx={{ mb: 6 }}>
-          <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
-            나만의 소중한 추억을 만들어보세요
+        {/* 추천 상품 그리드 섹션 */}
+        <Box sx={{ px: 2, pb: 6 }}>
+          <Typography 
+            sx={{ 
+              fontSize: '16px', 
+              fontWeight: 600, 
+              mb: 2,
+              letterSpacing: '0.3px',
+            }}
+          >
+            추천상품
           </Typography>
           
-          <Grid container spacing={2}>
-            {allProducts.map((product) => (
+          <Grid container spacing={1.5}>
+            {gridProducts.map((product) => (
               <Grid item xs={6} key={product.id}>
-                <ProductCard product={product} size="medium" />
+                <ProductCard product={product} />
               </Grid>
             ))}
           </Grid>
         </Box>
 
+        {/* 로딩 상태 */}
         {loading && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
-            <Typography>로딩 중...</Typography>
+          <Box sx={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            minHeight: '50vh' 
+          }}>
+            <Typography sx={{ color: '#999' }}>로딩 중...</Typography>
           </Box>
         )}
 
+        {/* 빈 상태 */}
         {!loading && filteredProducts.length === 0 && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '30vh' }}>
-            <Typography color="text.secondary">
+          <Box sx={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            minHeight: '30vh' 
+          }}>
+            <Typography sx={{ color: '#999', fontSize: '14px' }}>
               '{tabCategories[selectedTab]}' 카테고리에 해당하는 상품이 없습니다.
             </Typography>
           </Box>
@@ -237,4 +290,3 @@ const Home = () => {
 };
 
 export default Home;
-
