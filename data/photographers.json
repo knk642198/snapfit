@@ -1,0 +1,82 @@
+[
+  {
+    "id": "1",
+    "name": "스튜디오 아날로그",
+    "description": "35mm 필름 카메라 특유의 따뜻하고 레트로한 감성 연출. 자연광을 활용한 인물 중심 스냅을 지향합니다.",
+    "tags": ["필름감성", "서울스냅", "레트로", "야외촬영"],
+    "price": "15만 원~",
+    "ogImage": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600",
+    "instagramUrl": "https://instagram.com",
+    "bookingUrl": "https://naver.me"
+  },
+  {
+    "id": "2",
+    "name": "노을과 바다",
+    "description": "제주도 해안가와 오름을 배경으로 한 골든아워 웨딩·커플 스냅 전문. 부드러운 노을빛 톤 보정.",
+    "tags": ["제주스냅", "노을", "커플스냅", "웨딩"],
+    "price": "25만 원~",
+    "ogImage": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=600",
+    "instagramUrl": "https://instagram.com",
+    "bookingUrl": "https://naver.me"
+  },
+  {
+    "id": "3",
+    "name": "비 오는 날의 기록",
+    "description": "흐리고 비 오는 날씨를 오히려 무드로 활용하는 감성 프로필·인물 사진. 차분한 필름 톤.",
+    "tags": ["필름감성", "프로필사진", "감성사진", "실내촬영"],
+    "price": "12만 원~",
+    "ogImage": "https://images.unsplash.com/photo-1428592953211-077101b2021b?q=80&w=600",
+    "instagramUrl": "https://instagram.com",
+    "bookingUrl": "https://naver.me"
+  },
+  {
+    "id": "4",
+    "name": "한강 라이트",
+    "description": "서울 한강공원 노을 스냅과 야경 스냅 전문. 밝고 청량한 톤으로 커플·우정 스냅 촬영.",
+    "tags": ["서울스냅", "한강", "커플스냅", "야외촬영"],
+    "price": "18만 원~",
+    "ogImage": "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600",
+    "instagramUrl": "https://instagram.com",
+    "bookingUrl": "https://naver.me"
+  },
+  {
+    "id": "5",
+    "name": "모노톤 스튜디오",
+    "description": "흑백·모노톤 중심의 미니멀 프로필 스냅. 스튜디오 조명을 활용한 정적이고 시크한 분위기.",
+    "tags": ["프로필사진", "스튜디오", "모노톤", "미니멀"],
+    "price": "20만 원~",
+    "ogImage": "https://images.unsplash.com/photo-1554080353-a576cf803bda?q=80&w=600",
+    "instagramUrl": "https://instagram.com",
+    "bookingUrl": "https://naver.me"
+  },
+  {
+    "id": "6",
+    "name": "가을숲 필름",
+    "description": "부산 근교 숲과 카페 골목에서 촬영하는 가을 감성 필름 스냅. 따뜻한 색감의 우정·가족 스냅.",
+    "tags": ["부산스냅", "필름감성", "가족사진", "야외촬영"],
+    "price": "16만 원~",
+    "ogImage": "https://images.unsplash.com/photo-1477414348463-c0eb7f1359b6?q=80&w=600",
+    "instagramUrl": "https://instagram.com",
+    "bookingUrl": "https://naver.me"
+  },
+  {
+    "id": "7",
+    "name": "네온 나잇",
+    "description": "홍대·강남 야경과 네온사인을 활용한 시티팝 감성 나이트 스냅. 과감한 컬러톤.",
+    "tags": ["서울스냅", "야간촬영", "네온", "커플스냅"],
+    "price": "22만 원~",
+    "ogImage": "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=600",
+    "instagramUrl": "https://instagram.com",
+    "bookingUrl": "https://naver.me"
+  },
+  {
+    "id": "8",
+    "name": "화이트 코튼",
+    "description": "밝고 화사한 화이트톤 배경의 웨딩·베이비·가족 스냅 전문. 순백의 스튜디오 연출.",
+    "tags": ["스튜디오", "웨딩", "가족사진", "화이트톤"],
+    "price": "30만 원~",
+    "ogImage": "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600",
+    "instagramUrl": "https://instagram.com",
+    "bookingUrl": "https://naver.me"
+  }
+]
